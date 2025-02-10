@@ -5,7 +5,7 @@
 ** Login   <ol@epitech.net>
 ** 
 ** Started on  Mon Aug 14 15:29:14 2000 Charlie Root
-** Last update Wed May 25 16:46:31 2011 Olivier Crouzet
+** Last update Wed May 25 16:46:31 2011 Roger Marrero
 */
 
 
@@ -24,8 +24,10 @@ int	mlx_X_error;
 int	shm_att_pb(Display *d,XErrorEvent *ev)
 {
   if (ev->request_code==146 && ev->minor_code==X_ShmAttach)
-    write(2,WARN_SHM_ATTACH,strlen(WARN_SHM_ATTACH));
+    if (write(2,WARN_SHM_ATTACH,strlen(WARN_SHM_ATTACH)))
+      return (-1);
   mlx_X_error = 1;
+  return (0);
 }
 
 
